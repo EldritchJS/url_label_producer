@@ -15,7 +15,7 @@ def main(args):
     logging.info('finished creating kafka producer')
 
     data = {'url':'https://github.com/EldritchJS/mnist_challenge/blob/master/data/mnist_00_7.jpg','label':7}
-    while(true):
+    while True:
         producer.send('images', value=data)
         time.sleep(15.0)
 
