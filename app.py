@@ -14,7 +14,7 @@ def main(args):
                              dumps(x).encode('utf-8'))
     logging.info('finished creating kafka producer')
 
-    data = {'url':'https://github.com/EldritchJS/mnist_challenge/blob/master/data/mnist_00_7.jpg','label':7}
+    data = {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_00_3.jpg','label':3}
     while True:
         producer.send('images', value=data)
         time.sleep(15.0)
