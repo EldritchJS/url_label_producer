@@ -5,6 +5,18 @@ import os
 import time
 from json import dumps 
 
+sources = [
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_00_3.jpg','label':3},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_13_7.jpg','label':7},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_12_5.jpg','label':5},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_03_0.jpg','label':0},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_05_6.jpg','label':6},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_02_8.jpg','label':8},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_16_5.jpg','label':5},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_18_8.jpg','label':8},
+        {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_04_6.jpg','label':6}
+        ]
+
 def main(args):
     logging.info('brokers={}'.format(args.brokers))
     logging.info('topic={}'.format(args.topic))
@@ -14,10 +26,10 @@ def main(args):
                              dumps(x).encode('utf-8'))
     logging.info('finished creating kafka producer')
 
-    data = {'url':'https://raw.githubusercontent.com/EldritchJS/cifar10_challenge/master/images/cifar10_00_3.jpg','label':3}
     while True:
-        producer.send('images', value=data)
-        time.sleep(15.0)
+        for source in sources:
+            producer.send('images', value=source)
+            time.sleep(15.0)
 
 def get_arg(env, default):
     return os.getenv(env) if os.getenv(env, '') is not '' else default
